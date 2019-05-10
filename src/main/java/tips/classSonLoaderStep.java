@@ -8,7 +8,7 @@ package tips;
  */
 public class classSonLoaderStep extends classLoaderStep{
     public static void main(String[] args) {
-        new classLoaderStep();
+        new classSonLoaderStep();
     }
     /** 第二步，加载静态代码块 **/
     static int num = 6;
