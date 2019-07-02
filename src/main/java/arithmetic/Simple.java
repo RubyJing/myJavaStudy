@@ -16,6 +16,8 @@ public class Simple {
 //        String num = reverseString("abcdefg");
 //        System.out.println(num);
 
+        int[] sortArray = orderArray(new int[]{1,1,3,45,5,34,6,8});
+        System.out.println(sortArray);
 
     }
 
@@ -94,6 +96,24 @@ public class Simple {
         }else {
             return reverseString(str.substring(1))+str.charAt(0);
         }
+    }
+
+    /**
+     * 冒泡排序
+     * @param array
+     * @return
+     */
+    public static int[] orderArray(int[] array){
+        for (int i=0;i<array.length;i++){
+            for (int j=0;j<array.length;j++){
+                if(array[i]>array[j]){
+                    int s = array[i];
+                    array[i] = array[j];
+                    array[j] = s;
+                }
+            }
+        }
+        return array;
     }
 
 
