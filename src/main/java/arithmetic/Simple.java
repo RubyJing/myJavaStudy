@@ -1,7 +1,6 @@
 package arithmetic;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 简单难度的算法
@@ -16,8 +15,9 @@ public class Simple {
 //        String num = reverseString("abcdefg");
 //        System.out.println(num);
 
-        int[] sortArray = orderArray(new int[]{1,1,3,45,5,34,6,8});
-        System.out.println(sortArray);
+        int[] sortArray = new int[]{4,1,2,1,2};
+
+        System.out.println(singleNumber2(sortArray));
 
     }
 
@@ -116,7 +116,73 @@ public class Simple {
         return array;
     }
 
+    /**
+     * 只出现一次的数字--我的初版（垃圾，只超过8.8%的人)
+     * @param nums
+     * @return
+     */
+    public static int singleNumber(int[] nums){
+        int singleNumber=0;
+        //算出给map容量
+        int mapCount = (int) (nums.length/0.75+1);
+        //将出现次数存入
+        Map<String,String> countMap = new HashMap<>(mapCount);
+        for(int num:nums){
+            if(!countMap.containsKey(String.valueOf(num))){
+                countMap.put(String.valueOf(num),"1");
+            }else {
+                int value = Integer.parseInt(countMap.get(String.valueOf(num)))+1;
+                countMap.put(String.valueOf(num),String.valueOf(value));
+            }
+        }
+        //解析只出现一次的数字
+        if(countMap.containsValue("1")){
+            Set<String> keySet = countMap.keySet();
+            Iterator<String> it = keySet.iterator();
+            while(it.hasNext()){
+                String key = it.next();
+                Object value = countMap.get(key);
+                if(value.equals("1")){
+                    singleNumber= Integer.parseInt(key);
+                    break;
+                }
+            }
+        }
+        return singleNumber;
+    }
 
+    /**
+     * 只出现一次的数字--改良版(还是垃圾)
+     * 执行用时 :21 ms, 在所有 Java 提交中击败了21.73%的用户
+     * 内存消耗 :45.8 MB, 在所有 Java 提交中击败了5.05%的用户
+     * @param nums
+     * @return
+     */
+    public static int singleNumber2(int[] nums){
+        Map<Integer,String> numMap = new HashMap<>();
+        for(int num:nums){
+          if(numMap.containsKey(num)){
+              numMap.remove(num);
+          }else {
+              numMap.put(num,"");
+          }
+        }
+        return numMap.keySet().iterator().next();
+    }
 
+    /**
+     * 只出现一次的数字--使用异或(优化了执行时间)
+     * 执行用时 :2 ms, 在所有 Java 提交中击败了69.85%的用户
+     * 内存消耗 :42.9 MB, 在所有 Java 提交中击败了21.61%的用户
+     * @param nums
+     * @return
+     */
+    public static int singleNumber3(int[] nums){
+        int result = 0;
+        for (int num : nums) {
+            result = result^num;
+        }
+        return result;
+    }
 
 }
