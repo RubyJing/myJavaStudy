@@ -137,13 +137,14 @@ public class Simple {
         }
         //解析只出现一次的数字
         if(countMap.containsValue("1")){
+            int numPort = 0;
             Set<String> keySet = countMap.keySet();
             Iterator<String> it = keySet.iterator();
             while(it.hasNext()){
                 String key = it.next();
                 Object value = countMap.get(key);
                 if(value.equals("1")){
-                    singleNumber= Integer.parseInt(key);
+                    singleNumber=Integer.parseInt(key);
                     break;
                 }
             }
@@ -172,8 +173,8 @@ public class Simple {
 
     /**
      * 只出现一次的数字--使用异或(优化了执行时间)
-     * 执行用时 :2 ms, 在所有 Java 提交中击败了69.85%的用户
-     * 内存消耗 :42.9 MB, 在所有 Java 提交中击败了21.61%的用户
+     * 执行用时 :1 ms, 在所有 Java 提交中击败了99.85%的用户
+     * 内存消耗 :42.8 MB, 在所有 Java 提交中击败了29.67%的用户
      * @param nums
      * @return
      */
@@ -183,6 +184,32 @@ public class Simple {
             result = result^num;
         }
         return result;
+    }
+
+    /**
+     * 只出现一次的数字2--使用分治异或
+     * 执行用时 :2 ms, 在所有 Java 提交中击败了95.10%的用户
+     * 内存消耗 :40.4 MB, 在所有 Java 提交中击败了38.81%的用户
+     * @param nums
+     * @return
+     */
+    public static int[] singleNumberTwo(int[] nums){
+        int[] resultNum = new int[2];
+        int result = 0;
+        for (int num:nums){
+            result ^=num;
+        }
+        //取得最右边为1的数
+        int remake = result&(-result);
+        for (int num:nums){
+            //== 0、 == mask 两种结果
+            if((num&remake)==0){
+                resultNum[0] ^= num;
+            }else {
+                resultNum[1] ^= num;
+            }
+        }
+        return resultNum;
     }
 
 }
