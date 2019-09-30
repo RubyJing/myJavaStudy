@@ -98,23 +98,7 @@ public class Simple {
         }
     }
 
-    /**
-     * 冒泡排序
-     * @param array
-     * @return
-     */
-    public static int[] orderArray(int[] array){
-        for (int i=0;i<array.length;i++){
-            for (int j=0;j<array.length;j++){
-                if(array[i]>array[j]){
-                    int s = array[i];
-                    array[i] = array[j];
-                    array[j] = s;
-                }
-            }
-        }
-        return array;
-    }
+
 
     /**
      * 只出现一次的数字--我的初版（垃圾，只超过8.8%的人)
