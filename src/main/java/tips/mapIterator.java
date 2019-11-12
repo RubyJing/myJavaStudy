@@ -31,10 +31,8 @@ public class mapIterator {
          * 获取key和value的映射关系，再从中获取对应的key和value
          *
          */
-        Set<Map.Entry<String,Object>> set2 = map.entrySet();
-        Iterator<Map.Entry<String,Object>> it2 = set2.iterator();
-        while (it2.hasNext()){
-            Map.Entry<String,Object> entry = it2.next();
+        Set<Map.Entry<String,Object>> entries = map.entrySet();
+        for (Map.Entry<String,Object> entry:entries){
             String key2 = entry.getKey();
             Object value2 = entry.getValue();
             System.out.println("key2="+key2);
