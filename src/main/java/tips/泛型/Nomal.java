@@ -40,7 +40,7 @@ class Test{
         Nomal nomal3 = new Nomal(33.33);
         System.out.println("泛型测试，key is "+nomal.getKey());
         System.out.println("泛型测试，key is "+nomal2.getKey());
-        System.out.println("泛型测试，key is "+nomal3.getKey());
+        System.out.println("泛型测试，key is "+nomal3.getKey()+"\n");
 
         //注意事项：
         //1.泛型的类型参数只能是类类型，不能是简单类型
@@ -48,7 +48,38 @@ class Test{
 //        if (integerNomal instanceof Nomal<Integer>){
 //
 //        }
+
+         //虽然Integer是Number的子类，但是泛型中不兼容
+         //-->同一种泛型可以对应多个参数类型，但是不同参数类型类实例是不兼容的
+          Nomal<Integer> gInteger = new Nomal<>(123);
+          Nomal<Number> gNumber = new Nomal<>(456);
+          new Test().showKeyValue(gNumber);
+          //解决以上问题，通配符
+          Nomal<String> gString = new Nomal<>("哈哈哈\n");
+          new Test().showKeyValue2(gInteger);
+          new Test().showKeyValue2(gString);
+
+
     }
+
+    /**
+     * 泛型通配符（原）
+     */
+    private void showKeyValue(Nomal<Number> obj){
+        System.out.println("泛型测试，key is "+obj.getKey());
+    }
+
+    /**
+     * 泛型通配符 使用后
+     * 此处的 ? 是类型实参，不是类型形参
+     * 可以把 ? 看成所有类型的父类
+     * 通配符来表未知类型
+     * @param obj
+     */
+    private void showKeyValue2(Nomal<?> obj){
+        System.out.println("泛型测试，key is "+obj.getKey());
+    }
+
 
 
 
