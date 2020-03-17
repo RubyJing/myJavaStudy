@@ -12,11 +12,12 @@ import java.util.Arrays;
 public class TenSort {
     public static void main(String[] args) {
         long oneTime = System.currentTimeMillis();
-        int[] arrays = {5, 6, 3};
+        int[] arrays = {8, 9, 1, 7, 2, 3, 5, 4, 6, 0};
 
 //        System.out.println(Arrays.toString(bubbleSort(arrays)));
 //        System.out.println(Arrays.toString(selectionSort(arrays)));
-        System.out.println(Arrays.toString(insertionSort(arrays)));
+//        System.out.println(Arrays.toString(insertionSort(arrays)));
+        System.out.println(Arrays.toString(shellSort(arrays)));
 
         System.out.println(System.currentTimeMillis() - oneTime);
     }
@@ -99,6 +100,7 @@ public class TenSort {
      * 空间复杂度：O(1)
      * 排序方式:In-place
      * 稳定性：稳定
+     *
      * @param array
      * @return 从小到大
      */
@@ -110,20 +112,53 @@ public class TenSort {
         int inNum = 0;
         int current;
         for (int i = 0; i < array.length - 1; i++) {
-            //默认第一个是已经好的序列,current表示正在拿出来对比的数
+            //当前拿出来比较的值
             current = array[i + 1];
-            int preIndex = i;
-            while (preIndex >= 0 && current < array[preIndex]) {
-                //只要比当前数字大，往右挪一步
-                System.out.println(current);
-                array[preIndex + 1] = array[preIndex];
-                preIndex--;
-                inNum ++;
+            //当前被比较的下标
+            int index = i;
+            while (index >= 0 && current < array[index]) {
+                inNum++;
+                //把位置右移动
+                array[index + 1] = array[index];
+                index--;
             }
-            array[preIndex + 1] = current;
             num++;
+            //将被拿出的数放入
+            array[index + 1] = current;
         }
-        System.out.println("插入排序--外循环次数：" + num+"；内循环次数："+inNum);
+        System.out.println("插入排序--外循环次数：" + num + "；内循环次数：" + inNum);
+        return array;
+    }
+
+    /**
+     * 希尔排序--按下一定增量分组，对每组使用直接插入排序算法排序；随着增量逐渐减少，每组包含的关键词越来越多，当增量减至1时，整个文件恰被分成一组，算法便终止
+     * 时间复杂度: O(n log n) -->* 最好情况： O(nlog2 n) ; 最坏情况:O(nlog2 n)
+     * 空间复杂度：O(1)
+     * 排序方式:In-place
+     * 稳定性：不稳定
+     * @param array
+     * @return 从小到大
+     */
+    public static int[] shellSort(int[] array) {
+        if (array.length == 0) {
+            return array;
+        }
+        int length = array.length;
+        int gap = length / 2;
+        while (gap > 0) {
+            for (int i = gap; i < array.length; i++) {
+                //当前值
+                int current = array[i];
+                //被比对的下标
+                int index = i - gap;
+                while (index >= 0 && array[index] > current) {
+                    array[index + gap] = array[index];
+                    index -= gap;
+                }
+                array[index + gap] = current;
+            }
+            gap /= 2;
+        }
         return array;
     }
 }
