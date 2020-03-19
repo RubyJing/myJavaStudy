@@ -1,5 +1,6 @@
 package arithmetic;
 
+
 import java.util.Arrays;
 
 /**
@@ -15,11 +16,11 @@ public class TenSort {
         int[] arrays = {8, 9, 1, 7, 2, 3, 5, 4, 6, 0};
 
 //        System.out.println(Arrays.toString(bubbleSort(arrays)));
-//        System.out.println(Arrays.toString(selectionSort(arrays)));
+        System.out.println(Arrays.toString(selectionSort(arrays)));
 //        System.out.println(Arrays.toString(insertionSort(arrays)));
-        System.out.println(Arrays.toString(shellSort(arrays)));
+//        System.out.println(Arrays.toString(shellSort(arrays)));
 
-        System.out.println(System.currentTimeMillis() - oneTime);
+
     }
 /**
  * 稳定：如果a原本在b前面，而a=b，排序之后a仍然在b的前面；
@@ -78,7 +79,7 @@ public class TenSort {
         int num = 0;
         for (int i = 0; i < array.length; i++) {
             int minIndex = i;
-            for (int j = i; j < array.length; j++) {
+            for (int j = i + 1; j < array.length; j++) {
                 num++;
                 //找到当前遍历中最小的数
                 if (array[j] < array[minIndex]) {
