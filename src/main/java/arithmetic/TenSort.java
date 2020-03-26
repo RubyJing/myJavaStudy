@@ -13,12 +13,14 @@ import java.util.Arrays;
 public class TenSort {
     public static void main(String[] args) {
         long oneTime = System.currentTimeMillis();
-        int[] arrays = {8, 9, 1, 7, 2, 3, 5, 4, 6, 0};
+        int[] arrays = {8, 9, 1, 7, 2, 3, 5, 4, 6, 0,11};
+//        int[] arrays = {3, 1, 0, 2};
 
 //        System.out.println(Arrays.toString(bubbleSort(arrays)));
-        System.out.println(Arrays.toString(selectionSort(arrays)));
+//        System.out.println(Arrays.toString(selectionSort(arrays)));
 //        System.out.println(Arrays.toString(insertionSort(arrays)));
 //        System.out.println(Arrays.toString(shellSort(arrays)));
+        System.out.println(Arrays.toString(mergeSort(arrays)));
 
 
     }
@@ -42,7 +44,7 @@ public class TenSort {
      * @return 从小到大排序
      */
     public static int[] bubbleSort(int[] array) {
-        if (array.length == 0) {
+        if (array.length < 2) {
             return array;
         }
         int num = 0;
@@ -53,7 +55,6 @@ public class TenSort {
                     int mid = array[j + 1];
                     array[j + 1] = array[j];
                     array[j] = mid;
-//                    System.out.println(Arrays.toString(array));
                 }
             }
         }
@@ -73,7 +74,7 @@ public class TenSort {
      * @return 从小到大排序
      */
     public static int[] selectionSort(int[] array) {
-        if (array.length == 0) {
+        if (array.length < 2) {
             return array;
         }
         int num = 0;
@@ -106,26 +107,23 @@ public class TenSort {
      * @return 从小到大
      */
     public static int[] insertionSort(int[] array) {
-        if (array.length == 0) {
+        if (array.length < 2) {
             return array;
         }
         int num = 0;
         int inNum = 0;
         int current;
-        for (int i = 0; i < array.length - 1; i++) {
-            //当前拿出来比较的值
-            current = array[i + 1];
-            //当前被比较的下标
-            int index = i;
-            while (index >= 0 && current < array[index]) {
+        int preIndex;
+        for (int i = 1; i < array.length; i++) {
+            current = array[i];
+            preIndex = i;
+            while (preIndex >= 1 && array[preIndex - 1] > current) {
+                array[preIndex] = array[preIndex - 1];
+                preIndex--;
                 inNum++;
-                //把位置右移动
-                array[index + 1] = array[index];
-                index--;
             }
+            array[preIndex] = current;
             num++;
-            //将被拿出的数放入
-            array[index + 1] = current;
         }
         System.out.println("插入排序--外循环次数：" + num + "；内循环次数：" + inNum);
         return array;
@@ -137,11 +135,12 @@ public class TenSort {
      * 空间复杂度：O(1)
      * 排序方式:In-place
      * 稳定性：不稳定
+     *
      * @param array
      * @return 从小到大
      */
     public static int[] shellSort(int[] array) {
-        if (array.length == 0) {
+        if (array.length < 2) {
             return array;
         }
         int length = array.length;
@@ -162,4 +161,49 @@ public class TenSort {
         }
         return array;
     }
+
+    /**
+     * 归并排序
+     *
+     * @param array
+     * @return 从小到大
+     */
+    public static int[] mergeSort(int[] array) {
+        if (array.length < 2) {
+            return array;
+        }
+        int mid = array.length / 2;
+        int[] left = Arrays.copyOfRange(array, 0, mid);
+        int[] right = Arrays.copyOfRange(array, mid, array.length);
+        return merge(mergeSort(left), mergeSort(right));
+    }
+
+
+    /**
+     * 归并排序--将两段排序好的数组结合成一个排序数组
+     *
+     * @param left
+     * @param right
+     * @return
+     */
+    public static int[] merge(int[] left, int[] right) {
+        int[] result = new int[left.length + right.length];
+        for (int index = 0, i = 0, j = 0; index < result.length; index++) {
+            if (i >= left.length) {
+                result[index] = right[j];
+                j++;
+            } else if (j >= right.length) {
+                result[index] = left[i];
+                i++;
+            } else if (left[i] > right[j]) {
+                result[index] = right[j];
+                j++;
+            } else {
+                result[index] = left[i];
+                i++;
+            }
+        }
+        return result;
+    }
+
 }
