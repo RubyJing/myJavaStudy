@@ -2,6 +2,7 @@ package arithmetic;
 
 
 import java.util.Arrays;
+import java.util.Random;
 
 /**
  * 十种排序方法
@@ -13,14 +14,19 @@ import java.util.Arrays;
 public class TenSort {
     public static void main(String[] args) {
         long oneTime = System.currentTimeMillis();
-        int[] arrays = {8, 9, 1, 7, 2, 3, 5, 4, 6, 0,11};
-//        int[] arrays = {3, 1, 0, 2};
+        int[] arrays = {8, 9, 1, 7, 2, 3, 5, 4, 6, 0, 11, 8, 9, 1, 7, 2, 3, 5, 4, 6, 0, 11, 8, 9, 1, 7, 2, 3, 5, 4, 6, 0, 11, 8, 9, 1, 7, 2, 3, 5, 4, 6, 0, 11, 8, 9, 1, 7, 2, 3, 5, 4, 6, 0, 11, 8, 9, 1, 7, 2, 3, 5, 4, 6, 0, 11,
+                8, 9, 1, 7, 2, 3, 5, 4, 6, 0, 11, 8, 9, 1, 7, 2, 3, 5, 4, 6, 0, 11, 8, 9, 1, 7, 2, 3, 5, 4, 6, 0, 11, 8, 9, 1, 7, 2, 3, 5, 4, 6, 0, 11, 8, 9, 1, 7, 2, 3, 5, 4, 6, 0, 11, 8, 9, 1, 7, 2, 3, 5, 4, 6, 0, 11,
+                8, 9, 1, 7, 2, 3, 5, 4, 6, 0, 11, 8, 9, 1, 7, 2, 3, 5, 4, 6, 0, 11, 8, 9, 1, 7, 2, 3, 5, 4, 6, 0, 11, 8, 9, 1, 7, 2, 3, 5, 4, 6, 0, 11, 8, 9, 1, 7, 2, 3, 5, 4, 6, 0, 11, 8, 9, 1, 7, 2, 3, 5, 4, 6, 0, 11};
+//        int[] arrays = {5, 7, 6};
 
 //        System.out.println(Arrays.toString(bubbleSort(arrays)));
 //        System.out.println(Arrays.toString(selectionSort(arrays)));
 //        System.out.println(Arrays.toString(insertionSort(arrays)));
 //        System.out.println(Arrays.toString(shellSort(arrays)));
-        System.out.println(Arrays.toString(mergeSort(arrays)));
+//        System.out.println(Arrays.toString(mergeSort(arrays)));
+        System.out.println(Arrays.toString(quickSort2(arrays, 0, arrays.length - 1)));
+
+        System.out.println("所需时间：" + (System.currentTimeMillis() - oneTime));
 
 
     }
@@ -110,8 +116,6 @@ public class TenSort {
         if (array.length < 2) {
             return array;
         }
-        int num = 0;
-        int inNum = 0;
         int current;
         int preIndex;
         for (int i = 1; i < array.length; i++) {
@@ -120,12 +124,9 @@ public class TenSort {
             while (preIndex >= 1 && array[preIndex - 1] > current) {
                 array[preIndex] = array[preIndex - 1];
                 preIndex--;
-                inNum++;
             }
             array[preIndex] = current;
-            num++;
         }
-        System.out.println("插入排序--外循环次数：" + num + "；内循环次数：" + inNum);
         return array;
     }
 
@@ -164,6 +165,10 @@ public class TenSort {
 
     /**
      * 归并排序
+     * 时间复杂度: O(n log n) -->* 最好情况： O(nlog n) ; 最坏情况:O(nlog n)
+     * 空间复杂度：O(n)
+     * 排序方式:Out-place
+     * 稳定性：稳定
      *
      * @param array
      * @return 从小到大
@@ -204,6 +209,79 @@ public class TenSort {
             }
         }
         return result;
+    }
+
+    /**
+     * 快速排序
+     *
+     * @param array
+     * @return
+     */
+    public static int[] quickSort(int[] array, int start, int end) {
+        if (end > start) {
+            int oldStart = start;
+            int oldEnd = end;
+            int pivot = array[start];
+            while (end > start) {
+                while (end > start && array[end] > pivot) {
+                    end--;
+                }
+                array[start] = array[end];
+                while (end > start && array[start] <= pivot) {
+                    start++;
+                }
+                array[end] = array[start];
+            }
+            array[start] = pivot;
+            quickSort(array, oldStart, start - 1);
+            quickSort(array, start + 1, oldEnd);
+        }
+        return array;
+    }
+
+    public static int[] quickSort2(int[] array, int start, int end) {
+        Random in = new Random();
+        int result = in.nextInt(end - start + 1) + start;
+        swap(array, start, result);
+        int par = partion(array, start, end);
+        if (par > start) {
+            quickSort2(array, start, par + 1);
+        }
+        if (par < end) {
+            quickSort2(array, par - 1, end);
+        }
+        return array;
+    }
+
+    public static int partion(int[] array, int start, int end) {
+        //一趟快排
+        int tmp = array[start];
+        while (end > tmp) {
+            while (end > tmp && array[end] >= tmp) {
+                end--;
+            }
+            array[start] = array[end];
+
+            while (end > tmp && array[start] <= tmp) {
+                start++;
+            }
+            array[end] = array[start];
+        }
+        array[start] = tmp;
+        return start;
+    }
+
+    /**
+     * 将产生的随机下标放到开始
+     *
+     * @param array
+     * @param start
+     * @param end
+     */
+    public static void swap(int[] array, int start, int end) {
+        int temp = array[start];
+        array[start] = array[end];
+        array[end] = temp;
     }
 
 }
