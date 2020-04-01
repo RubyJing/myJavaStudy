@@ -1,0 +1,69 @@
+body {
+    width: 100%;
+    height: 100%;
+    background-color: black;
+}
+
+.bg {
+    width: 300px;
+    height: 500px;
+    background-color: white;
+    border: 1px solid;
+    border-radius: 10px;
+    margin: auto;
+}
+
+.title {
+    height: 30px;
+    text-align: center;
+}
+
+.title-font {
+    font-size: 15px;
+}
+
+.list-min-font{
+    font-size: 8px;
+    color: #dddddd;
+}
+
+.listLayer {
+    height: 80px;
+    box-shadow: #dddddd 0px 6px 9px 0px ;
+    border-radius: 5px;
+}
+
+.width10{
+    width: 10px;
+}
+
+
+.pd_top10{
+    padding-top: 10px;
+}
+
+.pd_top20{
+    padding-top: 20px;
+}
+
+.mg-top10 {
+    margin-top: 10px;
+}
+
+.mg-left10 {
+    margin-left: 10px;
+}
+
+.pd_left10{
+    padding-left: 10px;
+}
+
+.mg-bt10 {
+    margin-bottom: 10px;
+}
+
+.mg10{
+    margin: 10px 10px 10px 10px;
+}
+
+.bg-white{background-color: white}
