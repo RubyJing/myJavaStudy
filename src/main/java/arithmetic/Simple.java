@@ -15,18 +15,98 @@ public class Simple {
 
 //        String num = reverseString("abcdefg");
 //        System.out.println(num);
-//        int[] sortArray = new int[]{4, 1, 2, 1, 2};
+        int[] sortArray = new int[]{1, 1, 2};
 //        System.out.println(singleNumber2(sortArray));
 
-        System.out.println(subtractProductAndSum2(690));
+//        System.out.println(subtractProductAndSum2(690));
+        System.out.println(removeDuplicates(sortArray));
+    }
+
+
+    /**
+     * 26. 删除排序数组中的重复项 -- 双指针法(速度快，空间差）
+     */
+    public static int removeDuplicates(int[] nums) {
+        if (nums.length < 2) {
+            return nums.length;
+        }
+        int i = 0;
+        for (int j = 1; j < nums.length; j++) {
+            if (nums[i] != nums[j]) {
+                i++;
+                nums[i] = nums[j];
+            }
+        }
+        return i + 1;
+    }
+
+    /**
+     * 485. 最大连续1的个数 -- 我的思路：时间好,空间不行
+     */
+    public static int findMaxConsecutiveOnes(int[] nums) {
+        int count = 0;
+        int max = 0;
+        for (int num : nums) {
+            if (num == 1) {
+                count++;
+            } else {
+                max = Math.max(count, max);
+                count = 0;
+            }
+        }
+        return Math.max(count, max);
+    }
+
+    /**
+     * 1086.复写零 --执行时间短
+     */
+    public static void duplicateZeros2(int[] arr) {
+        int i;
+        int count = 0;
+        for (i = 0; i < arr.length; i++) {
+            count++;
+            if (arr[i] == 0) {
+                count++;
+            }
+            if (count >= arr.length) {
+                break;
+            }
+        }
+        for (int j = arr.length - 1; j >= 0; j--) {
+            if (arr[i] != 0) {
+                arr[j] = arr[i];
+            } else if (arr[i] == 0 && count > arr.length && j == arr.length - 1) {
+                //防止最后一个是0的情况,多出的0不复制
+                arr[j] = arr[i];
+            } else {
+                arr[j] = arr[i];
+                arr[j - 1] = arr[i];
+                j--;
+            }
+            i--;
+        }
+    }
+
+    /**
+     * 1086.复写零 --思路好，效率一般
+     */
+    public static void duplicateZeros(int[] arr) {
+        ArrayList<Integer> arrList = new ArrayList<>();
+        for (int i = 0; i < arr.length; i++) {
+            arrList.add(arr[i]);
+            if (arr[i] == 0) {
+                arrList.add(0);
+            }
+            arr[i] = arrList.get(i);
+        }
     }
 
     /**
      * 771. 宝石与石头 --思路好，但是效率不好
      */
     public int numJewelsInStones2(String J, String S) {
-        String a = "[^"+J+"]";
-        S = S.replaceAll(a,"");
+        String a = "[^" + J + "]";
+        S = S.replaceAll(a, "");
         return S.length();
     }
 
@@ -49,7 +129,6 @@ public class Simple {
 
     /**
      * 1281题：整数的各位积和之差 --优秀答案
-     *
      */
     public static int subtractProductAndSum2(int n) {
         int muti = 1;
