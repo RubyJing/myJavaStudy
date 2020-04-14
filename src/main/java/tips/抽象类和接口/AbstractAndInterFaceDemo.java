@@ -25,11 +25,6 @@ class Test {
         //都不能实例化
         BaseBook baseBook = new BaseBook() {
             @Override
-            public String findBook(String type) {
-                return null;
-            }
-
-            @Override
             public String getSize(String name) {
                 return null;
             }
