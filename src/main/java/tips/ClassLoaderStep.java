@@ -7,11 +7,11 @@ package tips;
  *        2.静态方法，被调用才加载
  */
 /** 第一步，加载类 **/
-public class classLoaderStep {
-    public static void main(String[] args) {
-        new classLoaderStep();
-        run();
-    }
+public class ClassLoaderStep {
+//    public static void main(String[] args) {
+//        new ClassLoaderStep();
+//        run();
+//    }
     /** 第二步，加载静态代码块 **/
     static int num = 4;
     static {
@@ -19,7 +19,7 @@ public class classLoaderStep {
     }
 
     /** 常量，按照顺序加载 **/
-    int a = 5;
+    public int a = 5;
 
     /** 第三步，加载匿名函数 **/
     {
@@ -28,7 +28,7 @@ public class classLoaderStep {
     }
 
     /** 第四步，加载构造函数 **/
-    classLoaderStep() {
+    public ClassLoaderStep() {
         System.out.println("=================加载父类构造函数==================="+a);
     }
 
@@ -39,4 +39,20 @@ public class classLoaderStep {
         System.out.println("=================加载父类静态方法===================");
     }
 
+
+    public static int getNum() {
+        return num;
+    }
+
+    public static void setNum(int num) {
+        ClassLoaderStep.num = num;
+    }
+
+    protected int getA() {
+        return a;
+    }
+
+    void setA(int a) {
+        this.a = a;
+    }
 }

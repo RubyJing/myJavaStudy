@@ -6,9 +6,9 @@ package tips;
  * ---调用--->加载（父类or子类）静态方法
  * remark:静态代码块永远会执行，且只执行一次
  */
-public class classSonLoaderStep extends classLoaderStep{
+public class ClassSonLoaderStep extends ClassLoaderStep {
     public static void main(String[] args) {
-        new classSonLoaderStep();
+        new ClassSonLoaderStep();
     }
     /** 第二步，加载静态代码块 **/
     static int num = 6;
@@ -26,7 +26,7 @@ public class classSonLoaderStep extends classLoaderStep{
     }
 
     /** 第四步，加载构造函数 **/
-    classSonLoaderStep() {
+    public ClassSonLoaderStep() {
         System.out.println("=================加载子类构造函数==================="+a);
     }
 

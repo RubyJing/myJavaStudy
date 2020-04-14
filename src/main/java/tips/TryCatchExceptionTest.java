@@ -23,7 +23,7 @@ class ExceptionB extends ExceptionA{
     }
 }
 
-public class tryCatchExceptionTest {
+public class TryCatchExceptionTest {
     public static void main(String[] args)throws Exception {
        /**
         * 一个基本例子

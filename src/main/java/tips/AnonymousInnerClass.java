@@ -4,7 +4,7 @@ package tips;
  * 匿名内部类
  * @author RubyJing
  */
-public class anonymousInnerClass {
+public class AnonymousInnerClass {
     /**
      * 抽象类的匿名内部类实现
      */

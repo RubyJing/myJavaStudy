@@ -9,7 +9,7 @@ import java.util.Set;
  * map的两种遍历方式
  * @RubyJing
  */
-public class mapIterator {
+public class MapIterator {
     public static void main(String[] args) {
         Map<String,Object> map = new HashMap<String, Object>();
         map.put("1",1);;
