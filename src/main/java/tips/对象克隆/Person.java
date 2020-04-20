@@ -6,7 +6,7 @@ import java.io.Serializable;
  * 人类
  * @author RubyJing
  */
-public class Person implements Serializable {
+public class Person implements Serializable,Cloneable {
     /** 姓名 **/
     private String name;
     /** 年龄 **/
@@ -42,5 +42,10 @@ public class Person implements Serializable {
 
     public void setCar(Car car) {
         this.car = car;
+    }
+
+    @Override
+    public Person clone() throws CloneNotSupportedException {
+        return (Person) super.clone();
     }
 }
