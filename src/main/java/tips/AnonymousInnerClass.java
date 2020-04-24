@@ -2,6 +2,20 @@ package tips;
 
 /**
  * 匿名内部类
+ * 匿名内部类的定义:
+ * 内部类分为：静态内部类，非静态内部类。匿名内部类是非静态内部类的一种特殊情况，匿名内部类没有类名，因此就不可能有构造函数，不能创建对象。
+ * 1.
+ * new 实现接口（）
+ * {
+ *     //匿名内部类类体部分
+ * }
+ *
+ * 2.
+ * new 父类构造器（实参列表）
+ * {
+ *   //匿名内部类类体部分
+ * }
+ *
  * @author RubyJing
  */
 public class AnonymousInnerClass {
@@ -29,36 +43,13 @@ public class AnonymousInnerClass {
         p.eat();
 
         PersonTwo p2 = new PersonTwo() {
+            @Override
             public void eat() {
                 System.out.println("eat something!");
             }
         };
         p2.eat();
 
-        /**
-         * Thread类的匿名内部类实现
-         */
-        Thread t = new Thread(){
-            @Override
-            public void run(){
-                for (int i = 1; i <= 5; i++) {
-                    System.out.print(i + " ");
-                }
-            }
-        };
-        t.start();
-
-        /**
-         * Runnable接口的匿名内部类实现
-         */
-        Runnable r = new Runnable() {
-            public void run() {
-                for (int i = 1; i <= 5; i++) {
-                    System.out.print(i + " ");
-                }
-            }
-        };
-       r.run();
     }
 
 }
