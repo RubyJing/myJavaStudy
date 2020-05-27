@@ -9,6 +9,10 @@ public abstract class BaseBook implements ReadBook{
     private String name;
     private String price;
 
+    public int param3;
+    int param = 2;
+    public int param2 = 3;
+
     protected BaseBook(String size, String name, String price) {
         this.size = size;
         this.name = name;
