@@ -1,6 +1,8 @@
 package tips.类加载;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  * 自定义类加载器
@@ -22,18 +24,32 @@ public class MyClassLoader extends ClassLoader {
 
     @Override
     protected Class<?> findClass(String name) throws ClassNotFoundException {
-        byte[] classData = loadClassData(name);
-        if (classData == null) {
-            throw new ClassNotFoundException(name);
-        } else {
-            return defineClass(name, classData, 0, classData.length);
+        try {
+            String li = name.substring(2);
+            name = li.replaceAll("\\.","/")+".class";
+            name = (getClass().getResource("/")+name).substring(6);
+            byte[] bytes = Files.readAllBytes(Paths.get(name));
+            return defineClass(li, bytes, 0, bytes.length);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
+        return super.findClass(name);
     }
+
+//    @Override
+//    protected Class<?> findClass(String name) throws ClassNotFoundException {
+//        byte[] classData = loadClassData(name);
+//        if (classData == null) {
+//            throw new ClassNotFoundException(name);
+//        } else {
+//            return defineClass(name, classData, 0, classData.length);
+//        }
+//
+//    }
 
     private byte[] loadClassData(String className) {
         String fileName = root + File.separatorChar
-                + className.replace(',', File.separatorChar) + ".class";
+                + className.substring(2).replace('.', File.separatorChar) + ".class";
 
         try {
             InputStream ins = new FileInputStream(fileName);
@@ -61,11 +77,10 @@ public class MyClassLoader extends ClassLoader {
 
     public static void main(String[] args) {
         MyClassLoader classLoader = new MyClassLoader();
-        classLoader.setRoot("D:\\myprojcet\\myJavaStudy");
+//        classLoader.setRoot("D:\\myprojcet\\myJavaStudy\\src\\main\\java");
         Class<?> testClass;
-
         try {
-            testClass = classLoader.loadClass("tips.类加载.Test2");
+            testClass = classLoader.loadClass("xxtips.类加载.Test2");
             Object object = testClass.newInstance();
             System.out.println(object.getClass().getClassLoader());
         } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
