@@ -1,4 +1,4 @@
-package tips.线程例子1;
+package tips.线程例子;
 
 /**
  * 存钱线程

@@ -1,4 +1,4 @@
-package tips.线程例子1;
+package tips.线程例子;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
