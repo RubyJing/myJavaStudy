@@ -3,17 +3,18 @@ package designpatterns.装饰模式;
 /**
  * 服饰类（Decorator)
  */
-public abstract class Finery extends Person{
+public class Finery extends Person{
     protected Person component;
 
-    public void Decorate(Person component){
+    public Finery(Person component) {
         this.component = component;
     }
 
     @Override
-    public void Show(){
+    public void show(){
         if(component != null){
-            component.Show();
+            component.show();
         }
     }
+
 }

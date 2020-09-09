@@ -13,7 +13,11 @@ public class Person {
         this.name = name;
     }
 
-    public void Show(){
+    public void show(){
         System.out.println("装扮的人名："+name);
+    }
+
+    protected void say(){
+        System.out.println("say hello");
     }
 }
