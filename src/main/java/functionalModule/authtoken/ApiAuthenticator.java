@@ -1,4 +1,4 @@
-package tips.authtoken;
+package functionalModule.authtoken;
 
 /**
  * 外部调用api接口

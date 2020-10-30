@@ -1,4 +1,4 @@
-package tips.authtoken;
+package functionalModule.authtoken;
 
 /**
  * @author RubyJing

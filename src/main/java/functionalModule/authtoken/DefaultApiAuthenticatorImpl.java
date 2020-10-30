@@ -1,4 +1,4 @@
-package tips.authtoken;
+package functionalModule.authtoken;
 
 /**
  * 触发执行鉴权逻辑的默认执行类
