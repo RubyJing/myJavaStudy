@@ -1,0 +1,41 @@
+编写可测试代码案例实战
+
+Transaction 是经过我抽象简化之后的一个电商系统的交易类，用来记录每笔订单交易的情况
+
+Transaction 类中的 execute() 函数负责执行转账操作，将钱从买家的钱包转到卖家的钱包中。
+真正的转账操作是通过调用 WalletRpcService RPC 服务来完成的。
+除此之外，代码中还涉及一个分布式锁 DistributedLock 单例类，用来避免 Transaction 并发执行，导致用户的钱被重复转出。
+
+测试用例：
+1.正常情况下，交易执行成功，回填用于对账（交易与钱包的交易流水）用的walletTransactionId,交易状态
+设置为EXECUTED，函数返回true。
+2.buyerId、sellerId 为null、amount小于0，返回InvalidTransactionException。
+3.交易已过期（createTimestamp超过14天），交易状态设置为EXPIRED，返回false。
+4.交易已经执行了（status==EXECUTED），不再重复执行转钱逻辑，返回true。
+5.钱包（WallerRpcService)转钱失败，交易状态设置为FAILED，函数返回false。
+6.交易正在执行着，不会被重复执行，函数直接返回false。
+
+execute() 函数的执行依赖两个外部的服务，一个是 RedisDistributedLock，一个 WalletRpcService。这就导致上面的单元测试代码存在下面几个问题。
+1.如果要让这个单元测试能够运行，我们需要搭建 Redis 服务和 Wallet RPC 服务。搭建和维护的成本比较高。
+2.我们还需要保证将伪造的 transaction 数据发送给 Wallet RPC 服务之后，能够正确返回我们期望的结果，然而 Wallet RPC 服务有可能是第三方（另一个团队开发维护的）的服务，并不是我们可控的。换句话说，并不是我们想让它返回什么数据就返回什么
+3.Transaction 的执行跟 Redis、RPC 服务通信，需要走网络，耗时可能会比较长，对单元测试本身的执行性能也会有影响。
+4.网络的中断、超时、Redis、RPC 服务的不可用，都会影响单元测试的执行。
+
+如果代码中依赖了外部系统或者不可控组件，比如，需要依赖数据库、网络通信、文件系统等，那我们就需要将被测代码与外部系统解依赖，而这种解依赖的方法就叫作“mock”。
+所谓的 mock 就是用一个“假”的服务替换真正的服务。mock 的服务完全在我们的控制之下，模拟输出我们想要的数据。
+
+那如何来mock服务呢？
+mock的方式有两种：
+1.手动mock
+2.利用框架mock
+
+
+其他常见的 Anti-Patterns
+1. 未决行为
+2. 全局变量
+3. 静态方法
+4. 复杂继承
+5. 高耦合代码
+
+
+
