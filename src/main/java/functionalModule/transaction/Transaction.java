@@ -37,7 +37,7 @@ public class Transaction {
         if (preAssignedId != null && !preAssignedId.isEmpty()) {
             this.id = preAssignedId;
         } else {
-            this.id = IdGenerator.generateTransactionId();
+            this.id = IdGenerator.getInstance().getId();
         }
 
         if (!this.id.startsWith("t_")) {

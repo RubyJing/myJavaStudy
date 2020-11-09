@@ -1,5 +1,7 @@
 package functionalModule.transaction;
 
+import java.util.concurrent.atomic.AtomicLong;
+
 /**
  * 事务id生成
  *
@@ -10,10 +12,19 @@ package functionalModule.transaction;
 public class IdGenerator {
 
     private static final String APP_ID = "t_";
-    private static int count = 0;
+    private AtomicLong id = new AtomicLong(0);
+    private static final IdGenerator INSTANCE = new IdGenerator();
 
-    public static String generateTransactionId() {
-        count += 1;
-        return APP_ID + count;
+    private IdGenerator() {
     }
+
+    public static IdGenerator getInstance() {
+        return INSTANCE;
+    }
+
+    public String getId(){
+        return APP_ID +id.incrementAndGet();
+    }
+
+
 }
