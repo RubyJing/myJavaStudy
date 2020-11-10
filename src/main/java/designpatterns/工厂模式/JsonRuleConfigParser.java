@@ -1,4 +1,4 @@
-package designpatterns.工厂模式.简单工厂;
+package designpatterns.工厂模式;
 
 /**
  * Json

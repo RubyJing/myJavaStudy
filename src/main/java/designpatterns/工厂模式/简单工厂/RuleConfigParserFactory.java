@@ -1,5 +1,7 @@
 package designpatterns.工厂模式.简单工厂;
 
+import designpatterns.工厂模式.*;
+
 /**
  * 简单工厂模式第一种 实现方法
  * 规则配置解析器生成工厂

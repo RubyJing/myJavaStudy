@@ -1,4 +1,6 @@
-package designpatterns.工厂模式.简单工厂;
+package designpatterns.工厂模式;
+
+import designpatterns.工厂模式.简单工厂.RuleConfigParserFactory;
 
 /**
  * 通过规则配置源

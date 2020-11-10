@@ -1,5 +1,7 @@
 package designpatterns.工厂模式.简单工厂;
 
+import designpatterns.工厂模式.*;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,7 +13,7 @@ import java.util.Map;
  * @date 2020/11/10 14:29
  */
 public class RuleConfigParserFactoryTwo {
-    private static final Map<String,IRuleConfigParser> cachedParsers = new HashMap<>();
+    private static final Map<String, IRuleConfigParser> cachedParsers = new HashMap<>();
 
     static {
         cachedParsers.put("json",new JsonRuleConfigParser());
