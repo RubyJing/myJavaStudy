@@ -1,0 +1,8 @@
+实现一个简单的 DI 容器(工厂模式)
+
+核心逻辑只需要包括这样两个部分：
+配置文件解析、根据配置文件通过“反射”语法来创建对象。
+
+ClassPathXmlApplicationContext 负责组装 BeansFactory 和 BeanConfigParser 两个类,串联执行流程；
+从 classpath 中加载 XML 格式的配置文件，通过 BeanConfigParser 解析为统一的 BeanDefinition 格式，
+然后，BeansFactory 根据 BeanDefinition 来创建对象。
