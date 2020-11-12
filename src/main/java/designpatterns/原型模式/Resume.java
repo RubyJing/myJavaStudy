@@ -54,21 +54,21 @@ public class Resume implements Cloneable{
      * 浅复制
      * @return
      */
-//    public Object Clone(){
-//      Object clone = null;
-//        try {
-//            clone = super.clone();
-//        } catch (CloneNotSupportedException e) {
-//            e.printStackTrace();
-//        }
-//        return clone;
-//    }
+    public Object shallowClone(){
+      Object clone = null;
+        try {
+            clone = super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return clone;
+    }
 
     /**
      * 深复制的简历对象
      * @return
      */
-    public Object Clone(){
+    public Object deepClone(){
         Resume obj = new Resume(this.work);
         obj.name = this.name;
         obj.sex = this.sex;
