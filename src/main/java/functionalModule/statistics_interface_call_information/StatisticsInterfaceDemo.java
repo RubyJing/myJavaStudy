@@ -1,7 +1,6 @@
 package functionalModule.statistics_interface_call_information;
 
-import functionalModule.statistics_interface_call_information.Prototype.UserController;
-import functionalModule.statistics_interface_call_information.Prototype.UserVo;
+import functionalModule.statistics_interface_call_information.Prototype.*;
 
 /**
  * @author RubyJing
@@ -12,7 +11,11 @@ public class StatisticsInterfaceDemo {
 
     public static void main(String[] args) {
         //-----Prototype-----
-        UserController userController = new UserController();
+        //普通代理实现
+//        IUserController userController = new UserControllerProxy(new UserController());
+        //动态代理实现
+        MetricsProxy metricsProxy = new MetricsProxy(new Metrics());
+        IUserController userController = (IUserController)metricsProxy.createProxy(new UserController());
         userController.login("421651","dfs");
         userController.login("421651","dfs");
         userController.login("421651","dfs");
@@ -21,6 +24,8 @@ public class StatisticsInterfaceDemo {
         userController.register(new UserVo("测试","3131"));
         userController.register(new UserVo("测试","3131"));
         userController.register(new UserVo("测试","3131"));
+
+
 
         //完整版本
 //        MetricsStorage storage = new RedisMetricsStorage();
