@@ -1,7 +1,10 @@
 package designpatterns.代理模式;
 
-public class Pursuit implements GiveGift{
+public class Pursuit implements GiveGift,Gift{
     SchoolGirl schoolGirl;
+
+    public Pursuit() {
+    }
 
     public Pursuit(SchoolGirl schoolGirl) {
         this.schoolGirl = schoolGirl;
