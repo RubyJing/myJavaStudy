@@ -16,7 +16,7 @@ public class ErrorAlertHandler extends AlertHandler{
     @Override
     public void check(ApiStatInfo apiStatInfo) {
         if (apiStatInfo.getErrorCount() > rule.getMarchedRule(apiStatInfo.getApi()).getMaxErrorCount()) {
-            notification.notify(NotificationEmergencyLevel.SEVERE,"...");
+            notification.notify("...");
         }
     }
 }

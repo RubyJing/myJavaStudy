@@ -1,5 +1,7 @@
 package functionalModule.alert;
 
+import java.util.Arrays;
+
 /**
  * 单例类：负责 Alert 的创建、组装（alertRule 和 notification 的依赖注入）、初始化（添加 handlers）工
  * @author RubyJing
@@ -13,10 +15,11 @@ public class ApplicationContext {
 
     public void initializeBeans(){
         alertRule = new AlertRule();
-        notification = new Notification();
         alert = new Alert();
-        alert.addAlertHandler(new TpsAlertHandler(alertRule,notification));
-        alert.addAlertHandler(new ErrorAlertHandler(alertRule,notification));
+        alert.addAlertHandler(new TpsAlertHandler(alertRule,
+                new SevereNotification(new TelephoneMsgSender(Arrays.asList("123","465")))));
+        alert.addAlertHandler(new ErrorAlertHandler(alertRule
+                ,new UrgencyNotification(new WechatMsgSender(Arrays.asList("微信1","微信2")))));
     }
 
     public Alert getAlert() {
