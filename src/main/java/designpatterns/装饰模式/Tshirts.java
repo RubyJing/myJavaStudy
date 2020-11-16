@@ -5,6 +5,7 @@ package designpatterns.装饰模式;
  */
 
 public class Tshirts extends Finery {
+
     public Tshirts(Person component) {
         super(component);
     }
@@ -12,7 +13,6 @@ public class Tshirts extends Finery {
     @Override
     public void show(){
         System.out.println("大T恤");
-        component.show();
     }
 }
 

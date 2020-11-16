@@ -8,8 +8,7 @@ class BigTrouser extends Finery{
         super(component);
     }
 
-    @Override
-    public void show(){
-        System.out.println("大裤子");
+    public void showPant(){
+        System.out.println("穿大裤子");
     }
 }
