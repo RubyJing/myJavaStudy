@@ -1,0 +1,26 @@
+实现一个基本的eventbus框架(事件总线)
+
+从图中我们可以看出，最关键的一个数据结构是 Observer 注册表，记录了消息类型和可接收消息函数的对应关系。
+当调用 register() 函数注册观察者的时候，EventBus 通过解析 @Subscribe 注解，生成 Observer 注册表。
+当调用 post() 函数发送消息的时候，EventBus 通过注册表找到相应的可接收消息的函数，然后通过 Java 的反射语法来动态地创建对象、执行函数。
+对于同步阻塞模式，EventBus 在一个线程内依次执行相应的函数。
+对于异步非阻塞模式，EventBus 通过一个线程池来执行相应的函数。
+
+整个小框架的代码实现包括 5 个类：
+EventBus:实现的是阻塞同步的观察者模式
+
+AsyncEventBus:为了实现异步非阻塞的观察者模式
+它就不能再继续使用 MoreExecutors.directExecutor() 了，而是需要在构造函数中，由调用者注入线程池。
+
+Subscribe：注解，用于标明观察者中的哪个函数可以接收消息。
+
+ObserverAction：
+用来表示 @Subscribe 注解的方法，
+其中，target 表示观察者类，method 表示方法。
+它主要用在 ObserverRegistry 观察者注册表中。
+
+ObserverRegistry:
+Observer 注册表，是最复杂的一个类，框架中几乎所有的核心逻辑都在这个类中
+CopyOnWriteArraySet，在写入数据的时候，会创建一个新的set，并且将原始数据clone到新的set中，
+在新的set中写入数据完成之后，再用新的set替换老的set。
+这样就能保证在写入数据的时候，不影响数据的读取操作，以此来解决读写并发问题。
