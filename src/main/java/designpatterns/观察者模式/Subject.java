@@ -1,37 +1,16 @@
 package designpatterns.观察者模式;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
+ * 被观察者
  * @author RubyJing
  * @version 1.0
- * @date 2020/3/2 13:52
+ * @date 2020/11/20 14:16
  */
-public class Subject {
+public interface Subject {
 
-    private List<AbstractObserver> observers = new ArrayList<>();
-    private int state;
+    void registerObserver(Observer observer);
 
-    public int getState() {
-        return state;
-    }
+    void removeObserver(Observer observer);
 
-    public void setState(int state) {
-        notifyAllObservers(state);
-    }
-
-    //订阅
-    public void addAttach(AbstractObserver observer){
-        observers.add(observer);
-    }
-
-    /**
-     *    通知所有订阅的观察者
-     */
-    private void notifyAllObservers(int state){
-        for (AbstractObserver observer : observers) {
-            observer.update(state);
-        }
-    }
+    void notifyObservers(Message message);
 }
