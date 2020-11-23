@@ -36,8 +36,7 @@ public class Test {
         /**
          * 策略模式和工厂模式结合
          */
-        CashContext cashContext = new CashContext(CashType.TYPE_300_RETURN_100);
-        cashContext.GetResult(400);
-        System.out.println("价格："+cashContext.GetResult(400));
+        CashSuper cashSuper = CashStrategyFactory.getStrategy(CashType.TYPE_300_RETURN_100);
+        System.out.println("价格："+ cashSuper.acceptCash(400));
     }
 }
