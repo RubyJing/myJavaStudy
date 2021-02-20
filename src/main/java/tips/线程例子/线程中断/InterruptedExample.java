@@ -15,13 +15,23 @@ public class InterruptedExample {
     private static class MyThread2 extends Thread{
         @Override
         public void run() {
+
+            //实例方法isInterrupted()不清除中断标志
+            if (this.isInterrupted()){
+                System.out.println("已经被中断");
+            }
+
+            //静态方法interrupted()清除中断标志
             while (!interrupted()){
                 System.out.println("现在执行");
             }
+            System.out.println(this.isInterrupted());
+
             //一直执行
 //            while (true){
 //                System.out.println("现在执行");
 //            }
+
             System.out.println("Thread end");
         }
     }
