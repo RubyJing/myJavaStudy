@@ -19,8 +19,10 @@ public abstract class BaseBook implements ReadBook{
         this.price = price;
     }
 
-    BaseBook() {
+    public BaseBook() {
+
     }
+
 
     public String hello(String name) {
         this.name = name;

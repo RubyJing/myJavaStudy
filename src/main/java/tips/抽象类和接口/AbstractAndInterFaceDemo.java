@@ -5,6 +5,13 @@ package tips.抽象类和接口;
  */
 public class AbstractAndInterFaceDemo extends BaseBook implements ReadBook {
 
+    protected AbstractAndInterFaceDemo(String size, String name, String price) {
+        super(size, name, price);
+    }
+
+    public AbstractAndInterFaceDemo() {
+    }
+
     @Override
     public String getSize(String name) {
         System.out.println(name);

@@ -3,7 +3,7 @@ package tips.抽象类和接口;
 /**
  * @author RubyJing
  */
-public interface ReadBook {
+public interface ReadBook  {
     int a = 0;
 
     /**
