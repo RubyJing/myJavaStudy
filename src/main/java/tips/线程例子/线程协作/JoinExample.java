@@ -36,15 +36,17 @@ public class JoinExample {
         }
     }
 
-    public void test() {
+    public void test() throws InterruptedException {
         A a = new A();
         B b = new B(a);
         b.start();
         a.start();
+        b.join();   //这里会将主线程挂起，让b执行完
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         JoinExample joinExample = new JoinExample();
         joinExample.test();
+        System.out.println("线程结束了");
     }
 }
