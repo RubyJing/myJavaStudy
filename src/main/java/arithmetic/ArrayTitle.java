@@ -3,11 +3,11 @@ package arithmetic;
 import java.util.*;
 
 /**
- * 简单难度的算法
+ * 数组类型相关的算法题目
  *
  * @author RubyJing
  */
-public class Simple {
+public class ArrayTitle {
     public static void main(String[] args) {
 //        sumTwoNum(new int[]{1,2,3,4,5},5);
 //        sumTwoNum2(new int[]{1,2,3,4,5},5);
@@ -19,9 +19,94 @@ public class Simple {
 //        System.out.println(singleNumber2(sortArray));
 
 //        System.out.println(subtractProductAndSum2(690));
-        System.out.println(removeDuplicates(sortArray));
+//        System.out.println(removeDuplicates(sortArray));
+        System.out.println(relativeSortArray(new int[]{2, 3, 1, 3, 2, 4, 6, 7, 9, 2, 19}, new int[]{2, 1, 4, 3, 9, 6}));
+
     }
 
+    /**
+     * 1122.数组的相对排序
+     * 给你两个数组，arr1 和 arr2，
+     * <p>
+     * arr2 中的元素各不相同
+     * arr2 中的每个元素都出现在 arr1 中
+     * 对 arr1 中的元素进行排序，使 arr1 中项的相对顺序和 arr2 中的相对顺序相同。未在 arr2 中出现过的元素需要按照升序放在 arr1 的末尾。
+     * <p>
+     * 示例：
+     * 输入：arr1 = [2,3,1,3,2,4,6,7,9,2,19], arr2 = [2,1,4,3,9,6]
+     * 输出：[2,2,2,1,4,3,3,9,6,7,19]
+     * <p>
+     * 提示：
+     * 1 <= arr1.length, arr2.length <= 1000
+     * 0 <= arr1[i], arr2[i] <= 1000
+     * <p>
+     * 执行用时：3ms ;内存消耗36.9MB。-> 执行慢，内存消耗少
+     */
+    public static int[] relativeSortArray(int[] arr1, int[] arr2) {
+        int length = arr1.length;
+        int[] notInArr2 = new int[length];
+        int[] inArr2 = new int[length];
+        int notSize = 0;
+        int inSize = 0;
+
+        //先将arr1排好序
+        TenSort.insertionSort(arr1);
+
+        for (int i = 0; i < arr2.length; i++) {
+            for (int j = 0; j < arr1.length; j++) {
+                if (arr1[j] == arr2[i]) {
+                    inArr2[inSize++] = arr1[j];
+                    arr1[j] = -1;
+                }
+            }
+        }
+
+        for (int arr : arr1) {
+            if (arr != -1) {
+                notInArr2[notSize++] = arr;
+            }
+        }
+
+        //去除多余的空白
+        notInArr2 = Arrays.copyOfRange(notInArr2, 0, notSize);
+
+        for (int value : notInArr2) {
+            inArr2[inSize++] = value;
+        }
+
+        inArr2 = Arrays.copyOfRange(inArr2, 0, inSize);
+
+        return inArr2;
+    }
+
+    /**
+     * 1122.数组的相对排序
+     * 使用计数排序解决
+     * 执行用时:0 ms;内存消耗:38.3MB。 ->执行快，内存消耗还可以
+     */
+    public static int[] relativeSortArray2(int[] arr1, int[] arr2) {
+        int[] count = new int[1001];
+        //将arr1中的数记录下来
+        for (int num1 : arr1) {
+            count[num1]++;
+        }
+        //先安排arr2中的数
+        int i = 0;
+        for (int num2 : arr2) {
+            while (count[num2] > 0) {
+                arr1[i++] = num2;
+                count[num2]--;
+            }
+        }
+        //再安排剩下的数字
+        for (int j = 0; j < count.length; j++) {
+           while (count[j]>0){
+               arr1[i++] = j;
+               count[j]--;
+           }
+        }
+        return arr1;
+    }
 
     /**
      * 26. 删除排序数组中的重复项 -- 双指针法(速度快，空间差）
