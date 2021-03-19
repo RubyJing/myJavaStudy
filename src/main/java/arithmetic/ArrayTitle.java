@@ -9,19 +9,75 @@ import java.util.*;
  */
 public class ArrayTitle {
     public static void main(String[] args) {
-//        sumTwoNum(new int[]{1,2,3,4,5},5);
-//        sumTwoNum2(new int[]{1,2,3,4,5},5);
-//        sumTwoNum3(new int[]{1,2,3,4,5},5);
+        System.out.println(findRepeatNumber(new int[]{2, 3, 1, 0, 2, 5, 3}));
+    }
 
-//        String num = reverseString("abcdefg");
-//        System.out.println(num);
-        int[] sortArray = new int[]{1, 1, 2};
-//        System.out.println(singleNumber2(sortArray));
+    /**
+     * 剑指 Offer 03. 数组中重复的数字
+     * 在一个长度为 n 的数组 nums 里的所有数字都在 0～n-1 的范围内。
+     * 数组中某些数字是重复的，但不知道有几个数字重复了，也不知道每个数字重复了几次。
+     * 请找出数组中任意一个重复的数字。
+     *
+     * 计数排序：时间空间一般，但是比用Set效率高
+     *
+     */
+    public static int findRepeatNumber(int[] nums) {
+        //计数排序
+        int[] count = new int[100000];
+        for(int num : nums){
+            count[num]++;
+        }
+        int randomNum = -1;
+        for(int i = 0; i < 100000 ; i++){
+            if(count[i] > 1){
+                randomNum = i;
+                break;
+            }
+        }
+        return randomNum;
+    }
 
-//        System.out.println(subtractProductAndSum2(690));
-//        System.out.println(removeDuplicates(sortArray));
-        System.out.println(relativeSortArray(new int[]{2, 3, 1, 3, 2, 4, 6, 7, 9, 2, 19}, new int[]{2, 1, 4, 3, 9, 6}));
 
+    /**
+     * 剑指 Offer 03. 数组中重复的数字
+     *
+     * 原地置换法
+     *
+     * 如果没有重复数字，那么正常排序后，数字i应该在下标为i的位置，
+     * 所以思路是重头扫描数组，遇到下标为i的数字如果不是i的话，
+     * （假设为m),那么我们就拿与下标m的数字交换。
+     * 在交换过程中，如果有重复的数字发生，那么终止返回true
+     *
+     * 执行速度快，空间一般
+     *
+     */
+    public static int findRepeatNumber2(int[] nums) {
+        int temp;
+        for (int i = 0; i < nums.length; i++) {
+            while (nums[i] != i){
+                if (nums[i] == nums[nums[i]]){
+                    return nums[i];
+                }
+                temp = nums[i];
+                nums[i] = nums[temp];
+                nums[temp] = temp;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 剑指 Offer 03. 数组中重复的数字
+     * 利用Set不可以重复原则：性能一般，空间和时间普通
+     */
+    public static int findRepeatNumberOfficial(int[] nums) {
+        Set<Integer> numSet = new HashSet<>();
+        for (int num : nums) {
+            if (!numSet.add(num)) {
+                return num;
+            }
+        }
+        return -1;
     }
 
     /**
@@ -100,10 +156,10 @@ public class ArrayTitle {
         }
         //再安排剩下的数字
         for (int j = 0; j < count.length; j++) {
-           while (count[j]>0){
-               arr1[i++] = j;
-               count[j]--;
-           }
+            while (count[j] > 0) {
+                arr1[i++] = j;
+                count[j]--;
+            }
         }
         return arr1;
     }
